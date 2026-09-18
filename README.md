@@ -17,7 +17,7 @@ that round was about.
 
 ```bash
 npm install
-npm run dev        # http://localhost:5173
+npm run dev        # http://localhost:5173/Eigen-Rush/
 ```
 
 Other scripts:
@@ -102,6 +102,12 @@ screen to ask it on. Each lives in its own folder under `src/modes/`.
 ## Deploying
 
 Pushing to `main` builds and publishes to GitHub Pages
-(`.github/workflows/deploy.yml`). The Vite `base` is set to `/Eigen-Rush/` for
-builds, matching the repository name — GitHub Pages paths are case-sensitive, so
-that string has to stay in step with the repo if it is ever renamed.
+(`.github/workflows/deploy.yml`). The Vite `base` is `/Eigen-Rush/`, matching the
+repository name — GitHub Pages paths are case-sensitive, so that string has to
+stay in step with the repo if it is ever renamed.
+
+The base applies to the dev and preview servers too, not just builds, so all
+three serve the site at the same path. That is deliberate: with a build-only
+base, `npm run preview` mounts at `/` while the built `index.html` asks for
+`/Eigen-Rush/...`, and every asset request quietly falls back to `index.html` —
+a blank page that looks like a code bug and can never verify the real deploy.
