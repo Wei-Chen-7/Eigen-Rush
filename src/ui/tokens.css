@@ -1,0 +1,137 @@
+/*
+ * Design tokens — "blueprint at dusk".
+ *
+ * Six named colours, no more. The boldness is spent on the plane; the chrome
+ * stays quiet. i-hat/j-hat use the amber/cyan pair, which stays separable under
+ * every common form of colour blindness — but colour never carries meaning on
+ * its own here: eigen lines are also dashed, flipped area is also hatched, and
+ * right/wrong is also a word and a glyph.
+ */
+:root {
+  /* The six */
+  --void: #10131c; /* the field everything sits on */
+  --chalk: #e9e7e2; /* text, and the reference grid at low opacity */
+  --ihat: #f2a541; /* i-hat, amber */
+  --jhat: #4cc9f0; /* j-hat, cyan */
+  --eigen: #b388ff; /* eigen-directions, violet — always dashed too */
+  --flip: #ff6b8a; /* det < 0 — always hatched too */
+
+  /* Surfaces, derived from the six so the palette stays honest */
+  --surface: rgb(233 231 226 / 4%);
+  --surface-raised: rgb(233 231 226 / 8%);
+  --hairline: rgb(233 231 226 / 14%);
+  --muted: rgb(233 231 226 / 62%);
+  --faint: rgb(233 231 226 / 34%);
+
+  /* Type: drafting grotesk for labels and numerals, system sans for prose,
+     KaTeX's Computer Modern for maths — so maths visibly reads as maths. */
+  --font-label: 'Space Grotesk', ui-sans-serif, system-ui, sans-serif;
+  --font-body:
+    ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+
+  /* Spacing, on a 4 px grid */
+  --s1: 4px;
+  --s2: 8px;
+  --s3: 12px;
+  --s4: 16px;
+  --s5: 24px;
+  --s6: 32px;
+
+  --radius: 6px;
+  --tap: 44px; /* minimum touch target */
+  --morph-ms: 600ms;
+}
+
+/* The plane is the one place motion belongs; everything else holds still. */
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --morph-ms: 0ms;
+  }
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--void);
+  color: var(--chalk);
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  /* Touch-first: no double-tap zoom lag, no rubber-band scroll behind the plane. */
+  touch-action: manipulation;
+  overscroll-behavior: none;
+}
+
+h1,
+h2,
+h3,
+button,
+label,
+.label {
+  font-family: var(--font-label);
+  font-weight: 500;
+  letter-spacing: 0.01em;
+}
+
+/* Sentence case everywhere — no shouting. */
+.label {
+  font-size: 12px;
+  color: var(--faint);
+}
+
+button {
+  min-height: var(--tap);
+  padding: 0 var(--s4);
+  color: var(--chalk);
+  background: var(--surface-raised);
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius);
+  font-size: 15px;
+  cursor: pointer;
+}
+
+button:hover:not(:disabled) {
+  background: rgb(233 231 226 / 12%);
+}
+
+button:disabled {
+  opacity: 0.4;
+  cursor: default;
+}
+
+button:focus-visible,
+input:focus-visible {
+  outline: 2px solid var(--jhat);
+  outline-offset: 2px;
+}
+
+input {
+  min-height: var(--tap);
+  color: var(--chalk);
+  background: var(--surface);
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius);
+  font-family: var(--font-label);
+  font-size: 17px;
+  padding: 0 var(--s2);
+}
+
+a {
+  color: var(--jhat);
+}
+
+/* KaTeX sits on a dark field; keep it chalk and stop wide matrices overflowing. */
+.katex {
+  color: var(--chalk);
+  font-size: 1.05em;
+}

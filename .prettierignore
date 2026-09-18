@@ -1,0 +1,5 @@
+dist
+node_modules
+coverage
+# The brief is the user's document; formatting it would churn the diff.
+eigen-rush-claude-code-prompt.md
