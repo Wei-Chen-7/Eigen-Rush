@@ -5,3 +5,4 @@ export * from './mat';
 export * from './eigen';
 export * from './morph';
 export * from './describe';
+export * from './rng';
