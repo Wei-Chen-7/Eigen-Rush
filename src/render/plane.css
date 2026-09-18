@@ -1,0 +1,154 @@
+.plane {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  border-radius: var(--radius);
+  /* Taps land on the plane, not on a browser scroll gesture. */
+  touch-action: none;
+  user-select: none;
+}
+
+/* Where the grid started. Quiet enough to read as "before". */
+.plane-reference path {
+  fill: none;
+  stroke: var(--chalk);
+  stroke-opacity: 0.14;
+  stroke-width: 1;
+}
+
+.plane-axes line {
+  stroke: var(--chalk);
+  stroke-opacity: 0.22;
+  stroke-width: 1;
+}
+
+/* The transformed grid, tinted toward whichever basis vector carries it: the
+   lines that were vertical run along j-hat, the horizontal ones along i-hat. */
+.plane-grid path {
+  fill: none;
+  stroke-width: 1.25;
+  stroke-opacity: 0.4;
+}
+
+.plane-grid .grid-rides-j {
+  stroke: var(--jhat);
+}
+
+.plane-grid .grid-rides-i {
+  stroke: var(--ihat);
+}
+
+/* Area = |det A|. */
+.unit-square {
+  fill: var(--jhat);
+  fill-opacity: 0.16;
+  stroke: var(--jhat);
+  stroke-opacity: 0.4;
+  stroke-width: 1;
+}
+
+/* det A < 0: the plane has been turned over. Different tint AND hatching, so
+   the meaning survives without colour. */
+.unit-square.flipped {
+  fill: var(--flip);
+  fill-opacity: 0.14;
+  stroke: var(--flip);
+  stroke-opacity: 0.5;
+}
+
+.basis path {
+  fill: none;
+  stroke-width: 3;
+  stroke-linecap: round;
+}
+
+/* Labels sit on top of a busy grid, so they carry a halo of the background
+   colour behind the glyph rather than relying on contrast alone. */
+.basis text,
+.eigen-line text,
+.extra-vector text {
+  paint-order: stroke;
+  stroke: var(--void);
+  stroke-width: 3px;
+  stroke-linejoin: round;
+  stroke-opacity: 0.9;
+}
+
+.basis text {
+  font-family: var(--font-label);
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.i-hat path {
+  stroke: var(--ihat);
+}
+
+.i-hat polygon {
+  fill: var(--ihat);
+}
+
+.i-hat text {
+  fill: var(--ihat);
+}
+
+.j-hat path {
+  stroke: var(--jhat);
+}
+
+.j-hat polygon {
+  fill: var(--jhat);
+}
+
+.j-hat text {
+  fill: var(--jhat);
+}
+
+/* Eigen-directions: dashed as well as violet, so the line reads as special
+   even if the colour does not come through. */
+.eigen-line path {
+  fill: none;
+  stroke: var(--eigen);
+  stroke-width: 1.75;
+  stroke-dasharray: 7 5;
+  stroke-opacity: 0.9;
+}
+
+.eigen-line text {
+  fill: var(--eigen);
+  font-family: var(--font-label);
+  font-size: 12px;
+}
+
+.extra-vector path {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2.5;
+  stroke-linecap: round;
+}
+
+.extra-vector polygon {
+  fill: currentColor;
+}
+
+.extra-vector text {
+  fill: currentColor;
+  font-family: var(--font-label);
+  font-size: 12px;
+}
+
+.trail path {
+  fill: none;
+  stroke: var(--eigen);
+  stroke-width: 1.5;
+  stroke-opacity: 0.7;
+}
+
+.trail circle {
+  fill: var(--eigen);
+}
+
+.origin {
+  fill: var(--chalk);
+  fill-opacity: 0.8;
+}
