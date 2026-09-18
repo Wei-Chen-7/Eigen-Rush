@@ -1,6 +1,8 @@
+import { MatrixLab } from './lab/MatrixLab';
+
 /**
- * Milestone 1 builds up to the matrix lab; until it lands this is just the
- * shell, so the scaffold and the Pages deploy can be checked end to end.
+ * Milestone 1 lands on the lab. The arcade loop arrives in milestone 2 and will
+ * take over this shell, with the lab kept behind a link.
  */
 export function App() {
   return (
@@ -9,8 +11,8 @@ export function App() {
         <h1>Eigen Rush</h1>
         <span className="subtitle">Matrix lab</span>
       </header>
-      <main className="stage">
-        <p className="label">The plane goes here.</p>
+      <main>
+        <MatrixLab />
       </main>
     </div>
   );
