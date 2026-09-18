@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { MORPH_DURATION_MS, easeInOutCubic } from '../math/morph';
 
 /** True when the reader has asked the system to cut down on animation. */
@@ -69,5 +69,8 @@ export function useMorph(durationMs: number = MORPH_DURATION_MS): Morph {
     [stop],
   );
 
-  return { t, isPlaying, play, seek };
+  // `play` and `seek` are stable, so an effect can depend on them without
+  // re-firing every render. `t` changes each frame, so the object as a whole
+  // cannot be — depend on `play`, never on the whole hook result.
+  return useMemo(() => ({ t, isPlaying, play, seek }), [t, isPlaying, play, seek]);
 }

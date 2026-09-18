@@ -1,0 +1,133 @@
+.screen {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--s4);
+  padding: var(--s5) 0 var(--s6);
+  min-height: 70vh;
+}
+
+/* Start */
+.start-art {
+  opacity: 0.85;
+}
+
+.start-copy {
+  text-align: center;
+}
+
+.start-copy h1 {
+  margin: 0 0 var(--s2);
+  font-size: 30px;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+}
+
+.start-copy p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 15px;
+  max-width: 30ch;
+}
+
+.start-actions {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s2);
+  width: 100%;
+  max-width: 300px;
+}
+
+.start-footer {
+  display: flex;
+  align-items: center;
+  gap: var(--s4);
+  font-family: var(--font-label);
+  font-size: 12px;
+  color: var(--faint);
+}
+
+button.link {
+  min-height: var(--tap);
+  padding: 0;
+  background: none;
+  border: none;
+  color: var(--jhat);
+  font-size: 12px;
+  text-decoration: underline;
+}
+
+/* Results */
+.result-head {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--s1);
+}
+
+.result-score {
+  font-family: var(--font-label);
+  font-size: 46px;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+}
+
+.result-sub {
+  font-family: var(--font-label);
+  font-size: 13px;
+  color: var(--muted);
+}
+
+.result-stats {
+  width: 100%;
+  max-width: 340px;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--s1);
+}
+
+.result-stats > div {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--s3);
+  padding: var(--s2) 0;
+  border-bottom: 1px solid var(--hairline);
+}
+
+.result-stats dt {
+  font-family: var(--font-label);
+  font-size: 14px;
+}
+
+.result-stats dd {
+  margin: 0;
+  font-family: var(--font-label);
+  font-size: 14px;
+  font-variant-numeric: tabular-nums;
+}
+
+.pct {
+  font-size: 17px;
+  font-weight: 700;
+}
+
+.muted {
+  color: var(--faint);
+}
+
+.result-note {
+  margin: 0;
+  font-size: 13px;
+  color: var(--faint);
+}
+
+.result-actions {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s2);
+  width: 100%;
+  max-width: 300px;
+}

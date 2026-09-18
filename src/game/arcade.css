@@ -1,0 +1,157 @@
+.arcade {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s2);
+  padding-bottom: var(--s5);
+}
+
+.prompt {
+  margin: 0;
+  font-family: var(--font-label);
+  font-size: 17px;
+  text-align: center;
+  min-height: 26px;
+}
+
+.round {
+  display: flex;
+  justify-content: center;
+}
+
+.mode-view {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--s3);
+  width: 100%;
+}
+
+.mode-side {
+  font-size: 15px;
+}
+
+.feedback {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s2);
+  padding-top: var(--s2);
+  border-top: 1px solid var(--hairline);
+  animation: settle 180ms ease-out;
+}
+
+@keyframes settle {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* Right and wrong carry a glyph and a word, never colour alone. */
+.verdict {
+  margin: 0;
+  font-family: var(--font-label);
+  font-size: 17px;
+  font-weight: 700;
+}
+
+.verdict.right {
+  color: var(--jhat);
+}
+
+.verdict.wrong {
+  color: var(--flip);
+}
+
+.insight {
+  margin: 0;
+  font-size: 14px;
+  color: var(--muted);
+  line-height: 1.45;
+}
+
+button.primary {
+  background: var(--chalk);
+  color: var(--void);
+  border-color: var(--chalk);
+  font-weight: 700;
+}
+
+button.primary:hover:not(:disabled) {
+  background: #fff;
+}
+
+.next {
+  margin-top: var(--s1);
+}
+
+/* M1: the tap marker. */
+.crosshair circle {
+  fill: none;
+  stroke: var(--chalk);
+  stroke-width: 2;
+}
+
+.crosshair line {
+  stroke: var(--chalk);
+  stroke-width: 1.5;
+}
+
+.crosshair.target circle,
+.crosshair.target line {
+  stroke: var(--jhat);
+}
+
+.crosshair.target circle {
+  fill: rgb(76 201 240 / 18%);
+}
+
+.crosshair.wrong circle,
+.crosshair.wrong line {
+  stroke: var(--flip);
+}
+
+.crosshair.correct circle,
+.crosshair.correct line {
+  stroke: var(--jhat);
+}
+
+/* M3: the drag hint and the no-direction button. */
+.hunt-hint {
+  margin: 0;
+  font-size: 13px;
+  color: var(--muted);
+  text-align: center;
+  min-height: 34px;
+}
+
+.no-direction {
+  width: 100%;
+}
+
+/* M4 */
+.det-matrix {
+  font-size: 17px;
+}
+
+.det-working {
+  margin: 0;
+  font-size: 14px;
+  text-align: center;
+}
+
+.area-option {
+  font-family: var(--font-label);
+  font-size: 19px;
+  font-weight: 500;
+  font-variant-numeric: tabular-nums;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .feedback {
+    animation: none;
+  }
+}

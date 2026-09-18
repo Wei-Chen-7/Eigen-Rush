@@ -33,6 +33,16 @@ export interface PlaneProps {
   trail?: readonly Vec2[];
   /** Accessible description of what is on screen. */
   title?: string;
+  /** Set by the interactive modes so taps and drags reach the plane. */
+  svgRef?: React.Ref<SVGSVGElement>;
+  pointerHandlers?: {
+    onPointerDown?: (e: React.PointerEvent<SVGSVGElement>) => void;
+    onPointerMove?: (e: React.PointerEvent<SVGSVGElement>) => void;
+    onPointerUp?: (e: React.PointerEvent<SVGSVGElement>) => void;
+    onPointerCancel?: (e: React.PointerEvent<SVGSVGElement>) => void;
+  };
+  /** Hides the transformed grid — for rounds where it would give the answer. */
+  hideTransformed?: boolean;
   children?: React.ReactNode;
 }
 
@@ -57,6 +67,9 @@ export function Plane({
   vectors = [],
   trail,
   title,
+  svgRef,
+  pointerHandlers,
+  hideTransformed = false,
   children,
 }: PlaneProps) {
   const uid = useId().replace(/:/g, '');
@@ -91,12 +104,14 @@ export function Plane({
 
   return (
     <svg
+      ref={svgRef}
       className="plane"
       width={size}
       height={size}
       viewBox={`0 0 ${size} ${size}`}
       role="img"
       aria-label={title ?? 'The plane under the current transformation'}
+      {...pointerHandlers}
     >
       <defs>
         <pattern
@@ -118,11 +133,14 @@ export function Plane({
         <path d={reference.horizontal} />
       </g>
 
-      {/* Where the grid is now. */}
-      <g className="plane-grid">
-        <path d={grid.vertical} className="grid-rides-j" />
-        <path d={grid.horizontal} className="grid-rides-i" />
-      </g>
+      {/* Where the grid is now. Hidden in rounds where showing it would hand
+          the player the answer. */}
+      {!hideTransformed && (
+        <g className="plane-grid">
+          <path d={grid.vertical} className="grid-rides-j" />
+          <path d={grid.horizontal} className="grid-rides-i" />
+        </g>
+      )}
 
       {/* The axes of the original frame, so "which way was up" stays readable. */}
       <g className="plane-axes">
@@ -130,7 +148,7 @@ export function Plane({
         <line x1={origin.x} y1="0" x2={origin.x} y2={size} />
       </g>
 
-      {showUnitSquare && (
+      {showUnitSquare && !hideTransformed && (
         <>
           <polygon
             points={unitSquarePoints(frame, vp)}
@@ -191,7 +209,7 @@ export function Plane({
         );
       })}
 
-      {showBasis && (
+      {showBasis && !hideTransformed && (
         <>
           {jArrow !== null && (
             <g className="basis j-hat">

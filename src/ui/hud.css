@@ -1,0 +1,122 @@
+.hud {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s2);
+  padding: var(--s2) 0 var(--s3);
+}
+
+.hud-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--s3);
+}
+
+/* Lives read as three marks; a spent one hollows out rather than vanishing, so
+   the cost is visible instead of just the remainder. */
+.lives {
+  display: flex;
+  gap: 6px;
+}
+
+.life {
+  width: 10px;
+  height: 10px;
+  border-radius: 2px;
+  background: var(--ihat);
+  transform: rotate(45deg);
+}
+
+.life.spent {
+  background: none;
+  border: 1.5px solid var(--faint);
+}
+
+.score-block {
+  position: relative;
+  flex: 1;
+  text-align: center;
+}
+
+.score {
+  font-family: var(--font-label);
+  font-size: 26px;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+/* The points fly up and fade — the one bit of flourish in the chrome. */
+.gained {
+  position: absolute;
+  left: 50%;
+  top: -2px;
+  font-family: var(--font-label);
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--jhat);
+  animation: rise 900ms ease-out forwards;
+  pointer-events: none;
+}
+
+@keyframes rise {
+  from {
+    opacity: 1;
+    transform: translate(-50%, 0);
+  }
+  to {
+    opacity: 0;
+    transform: translate(-50%, -22px);
+  }
+}
+
+.streak {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  line-height: 1.1;
+  min-width: 62px;
+}
+
+.multiplier {
+  font-family: var(--font-label);
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--faint);
+}
+
+.streak.live .multiplier {
+  color: var(--ihat);
+}
+
+.streak-note {
+  font-family: var(--font-label);
+  font-size: 10px;
+  color: var(--faint);
+}
+
+/* The clock. The only thing in the chrome allowed to be loud. */
+.clock {
+  height: 4px;
+  border-radius: 2px;
+  background: rgb(233 231 226 / 10%);
+  overflow: hidden;
+}
+
+.clock-fill {
+  height: 100%;
+  background: var(--jhat);
+  transform-origin: left center;
+  will-change: transform;
+}
+
+.clock.urgent .clock-fill {
+  background: var(--flip);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .gained {
+    animation: none;
+    opacity: 1;
+    transform: translate(-50%, -22px);
+  }
+}

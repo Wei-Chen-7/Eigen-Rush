@@ -1,19 +1,23 @@
+import { useState } from 'react';
+import { Arcade } from './game/Arcade';
 import { MatrixLab } from './lab/MatrixLab';
 
-/**
- * Milestone 1 lands on the lab. The arcade loop arrives in milestone 2 and will
- * take over this shell, with the lab kept behind a link.
- */
+type Route = 'arcade' | 'lab';
+
 export function App() {
+  const [route, setRoute] = useState<Route>('arcade');
+
   return (
     <div className="app">
-      <header className="rail">
-        <h1>Eigen Rush</h1>
-        <span className="subtitle">Matrix lab</span>
-      </header>
-      <main>
-        <MatrixLab />
-      </main>
+      {route === 'lab' && (
+        <header className="rail">
+          <h1>Eigen Rush</h1>
+          <button className="link" onClick={() => setRoute('arcade')}>
+            Back to the game
+          </button>
+        </header>
+      )}
+      <main>{route === 'arcade' ? <Arcade onLab={() => setRoute('lab')} /> : <MatrixLab />}</main>
     </div>
   );
 }

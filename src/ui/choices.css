@@ -1,0 +1,59 @@
+.choices {
+  display: grid;
+  gap: var(--s2);
+}
+
+.choices.cols-2 {
+  grid-template-columns: 1fr 1fr;
+}
+
+.choices.cols-1 {
+  grid-template-columns: 1fr;
+}
+
+.choice {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 60px; /* well past the 44 px floor; these get tapped in a hurry */
+  padding: var(--s2) var(--s3);
+  transition: opacity 120ms ease;
+}
+
+.choice-body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Right and wrong never ride on colour alone — the glyph carries it too. */
+.choice.correct {
+  border-color: var(--jhat);
+  background: rgb(76 201 240 / 14%);
+}
+
+.choice.wrong {
+  border-color: var(--flip);
+  background: rgb(255 107 138 / 12%);
+}
+
+.choice.dim {
+  opacity: 0.4;
+}
+
+.mark {
+  position: absolute;
+  top: 4px;
+  right: 8px;
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.choice.correct .mark {
+  color: var(--jhat);
+}
+
+.choice.wrong .mark {
+  color: var(--flip);
+}
