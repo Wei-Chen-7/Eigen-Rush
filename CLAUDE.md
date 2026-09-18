@@ -70,8 +70,16 @@ Integer eigenvalues come from `fromEigen(P, λ1, λ2)`, which builds `P D P⁻¹
 Give it an integer `P` with `det P = ±1` and the result stays integer. Reject
 any result whose entries fall outside the tier's range and draw again.
 
-**Defective matrices do not appear before tier 3.** Generators must check
-`eigen(A).defective` and reject.
+**Defective matrices do not appear before tier 3 — with one recorded
+exception.** Shears are named tier-1 moves and every shear is defective
+(`λ = 1` twice, one eigen-direction). The brief lists shears in tier 1 and also
+says to keep defective matrices out until tier 3, so the two rules collide.
+The reading in force: the defective rule guards the _general_-matrix tier, where
+a non-diagonalizable matrix turns up unannounced and teaches nothing. A shear
+announces itself. So tier 1 allows defective, tier 2 rejects it, and the eigen
+hunt draws through `generateWithRealEigen`, which rejects defective at every
+tier — the one mini-game where a lone eigen-direction genuinely misleads never
+sees one. Other generators must check `eigen(A).defective` and reject.
 
 ## Rendering rules
 
@@ -115,6 +123,28 @@ prose, KaTeX's Computer Modern for maths — so maths visibly reads as maths.
 
 UI copy is plain and sentence case: "Start round", "Try again". No ALL-CAPS
 labels, no shouting.
+
+## Game rules
+
+These live in `src/game/scoring.ts` as tested pure functions. Change them there,
+not inline.
+
+| Rule        | Value                                                          |
+| ----------- | -------------------------------------------------------------- |
+| Base points | 100, multiplied by the streak multiplier                       |
+| Multiplier  | ×1/×2/×3/×4, stepping up every 2 correct, capped at ×4         |
+| Speed bonus | up to +50, scaled by fraction of time left, **not** multiplied |
+| Round clock | `5000 + 5000 × 0.85^streak` ms — 10 s down toward 5 s          |
+| Lives       | 3; a wrong answer or a timeout costs one                       |
+| Tier ramp   | tier 1 for rounds 0–3, then fading to all tier 2 by round 12   |
+
+The run is a pure reducer in `src/game/reducer.ts`. Keep it pure: it is what
+lets a whole run be replayed in a test.
+
+**React hooks that return an object**: memoize it, and depend on the stable
+callback rather than the whole result. `useMorph` returns fresh `t` every frame;
+an effect keyed on the hook result re-fires mid-animation and resets the morph
+forever. Depend on `morph.play`.
 
 ## Testing
 

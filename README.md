@@ -10,8 +10,9 @@ that round was about.
 
 **Play:** https://wei-chen-7.github.io/Eigen-Rush/
 
-> Milestone 1 of 5. Right now the site is the matrix lab — type any 2×2 matrix
-> and watch it transform. The arcade loop lands in milestone 2.
+> Milestone 2 of 5. The arcade loop is playable: timer, score, streak, three
+> lives, and four mini-games on tiers 1 and 2. The matrix lab is still there
+> behind a link on the start screen.
 
 ## Running it
 
@@ -46,10 +47,23 @@ src/
   lab/         the matrix lab (debug page)
 ```
 
-Maths, game logic and rendering stay separate, so the maths can be tested on its
-own — and it is: 160-odd tests, including property tests over a thousand
-generated matrices checking that `tr A = λ₁ + λ₂`, `det A = λ₁λ₂`, and
-`A v = λ v` for every eigenvector the solver hands back.
+Maths, game logic and rendering stay separate, so each can be tested on its own
+— and it is: 280-odd tests. Property tests run over a thousand generated
+matrices checking `tr A = λ₁ + λ₂`, `det A = λ₁λ₂`, and `A v = λ v` for every
+eigenvector the solver returns; each generator is checked against its tier's
+constraints over a thousand samples; and because the run is one pure reducer, a
+whole game replays action by action in a test — a thirty-round clean streak, the
+difficulty ramp, lives running out — without rendering anything.
+
+## How a run works
+
+Rounds are drawn from the four unlocked mini-games, never the same one twice
+running. The clock starts at 10 s and decays geometrically toward 5 s as the
+streak grows, so the squeeze is gentle early and the run gets tight without ever
+becoming impossible. Score is base points × a streak multiplier (×1 to ×4,
+climbing every two correct) plus a small speed bonus. Three lives; a wrong
+answer or a timeout costs one. The first four rounds are tier 1, then tier 2
+fades in and has taken over by round 12.
 
 Conventions (column vectors, composition order, tolerances, tier rules) are
 written down in [CLAUDE.md](./CLAUDE.md). Read that before changing the maths.
